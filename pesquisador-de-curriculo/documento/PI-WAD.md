@@ -32,7 +32,7 @@ Para o meu projeto, usei o modelo de persona estatística, ou seja, usei dados d
 
 
 <div align="center">
-  <img src="../assets/persona1.png" width="75%" alt="Persona"><br>
+  <img src="../public/assets/persona1.png" width="75%" alt="Persona"><br>
 </div>
 
 ### 2.2. User Stories

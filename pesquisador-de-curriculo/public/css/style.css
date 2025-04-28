@@ -1,0 +1,104 @@
+
+/* corpo com fundo azul-claro */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Cabin", sans-serif;
+  background-color: #e6ecff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  letter-spacing: 0.5px;
+}
+
+/* container central */
+.container {
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+/* cartão branco com bordas arredondadas */
+.card {
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+/* título principal */
+.card h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #7b8cff;
+}
+
+/* formulário de busca */
+.search-form {
+  display: flex;
+  background: #f2f2f2;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+/* campo de input */
+.search-form input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 1rem 1.5rem;
+  font-family: "Cabin", sans-serif;
+  font-size: 1rem;
+  color: #666;
+  outline: none;
+}
+
+/* botão com seta */
+.search-form button {
+  border: none;
+  background: transparent;
+  padding: 0 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #7b8cff;
+  transition: opacity 0.2s;
+}
+.search-form button:hover {
+  opacity: 0.7;
+}
+
+button {
+  /* Variables */
+  --button_radius: 0.75em;
+  --button_color: #e8e8e8;
+  --button_outline_color: #000000;
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--button_radius);
+  background: var(--button_outline_color);
+}
+
+
+.back-button {
+  margin-top: 2rem;
+  background-color: #9DADFF;
+  color: #fff;
+  padding: 10px;
+  width: 120px;
+  font-family: "Cabin", sans-serif;
+}
+
+.back-button:hover{
+  background-color: #B2B9F8;
+}
+
+.results-scroll {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 1rem;
+  padding-right: 0.5rem;
+}
