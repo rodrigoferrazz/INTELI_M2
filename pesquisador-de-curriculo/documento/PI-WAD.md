@@ -51,11 +51,24 @@ User Stories são descrições curtas e claras de funcionalidades, escritas do p
 
 ## <a name="c3"></a>3. Projeto da Aplicação Web
 
-### 3.1. Modelagem do banco de dados  (Semana 3)
+### 3.1. Modelagem do banco de dados
 
-*Posicione aqui os diagramas de modelos relacionais do seu banco de dados, apresentando todos os esquemas de tabelas e suas relações. Utilize texto para complementar suas explicações, se necessário.*
+A modelagem do banco de dados do projeto se baseia em apenas uma tabela que possui as colunas: id, nome, area_de_interesse, idade, numero e arquivo, todas essas colunas serão requisitadas pelo sistema por meio do método READ (do CRUD).
 
-*Posicione também o modelo físico com o Schema do BD (arquivo .sql)*
+```sql
+CREATE TABLE curriculos (
+    id INT PRIMARY KEY, 
+    nome VARCHAR(100) NOT NULL, 
+    area_de_interesse VARCHAR(50) NOT NULL,  
+    idade INT NOT NULL,  
+    numero VARCHAR(20) NOT NULL,
+    arquivo VARCHAR(255) NOT NULL
+);
+```
+<div align="center">
+  <img src="../public/assets/dbschema.png" width="25%" alt="Schema"><br>
+</div>
+
 
 ### 3.1.1 BD e Models (Semana 5)
 *Descreva aqui os Models implementados no sistema web*
@@ -71,7 +84,7 @@ User Stories são descrições curtas e claras de funcionalidades, escritas do p
   
 *Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
 
-### 3.3. Wireframes (Semana 03)
+### 3.3. Wireframes
 
 Abaixo está um protótipo de baixa fidelidade (wireframe) do visual (front-end) do projeto, a partir deste protótipo é possível ter uma mínima noção daquilo que será o projeto final.
 
