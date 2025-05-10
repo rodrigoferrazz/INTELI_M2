@@ -1,4 +1,4 @@
-## Filtragem de Currículos
+## Pesquisador de Currículos
 
 ### Descrição do Projeto
 O site consiste em um pesquisador de currículos, onde os colaboradores de RH de uma empresa poderão pesquisar currículos que estão armazenados na base de dados por meio de palavras-chave, o intuito é facilitar e agilizar o trabalho da equipe de RH, que com essa solução não perderá tempo abrindo arquivo por arquivo para encontrar aqueles que condizem com a necessidade do momento, visto que sistema fará a filtragem de todos currículos da empresa e mostrará apenas aqueles que realmnete fazem sentido com aquela busca.
