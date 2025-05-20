@@ -1,5 +1,7 @@
 # Aula 06 - Cristiano Benites - 20/maio
 
+LINK DO CODIGO DA AULA 06: https://github.com/rodrigoferrazz/INTELI_M2/tree/main/exercicio-aula-01-cristiano
+
 ## Models
 
 Faz a integração com o banco de dados, portanto todas as funcionalidades que serão feitas, será comunicada para o banco de dados pelo models.
