@@ -48,12 +48,10 @@ Faz a interface do site (neste caso, estão em .ejs)
 Um exemplo do recebimento de dados em json é
 
 ````js
-app.get('/professores/json', (req, res) => {
-    res.json(listaProfessores);
-});
+router.post('/edit/:id', controller.update);
 ````
 
-Basicamente, o sistema acessa as informações de 'listaProfessores', onde é indicado que isso é um json (res.json)
+Basicamente, o sistema faz o UPDATE da informação de professores por meio dessa rota de post
 
 ## Qual a importância de usar HTML básico com formulários e tabelas para organizar e manipular dados no navegador?
 
