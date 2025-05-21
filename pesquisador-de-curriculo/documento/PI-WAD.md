@@ -96,14 +96,29 @@ Legenda: a tela da esquerda se refere a tela inicial do site, onde o usuário te
 
 Link do figma: https://www.figma.com/design/zVCDQ15z9j5WyamLHekpmi/Projeto-Individual---Pesquisador-de-Curriculos?node-id=0-1&t=UdQrFp4fQ5gFKE3a-1
 
-### 3.4. Guia de estilos (Semana 05)
+### 3.4. Guia de estilos
 
-*Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução.*
+Para produzir o prototipo de alta fidelidade e desenvolver a solução final é necessário seguir o padrão estabelecido abaixo, tanto em relação as cores, tamanhos e espaçamentos
+
+<div align="center">
+  <img src="../public/assets/guide.png" width="95%" alt="Guide"><br>
+</div>
+
+<div align="center">
+  <img src="../public/assets/grids.png" width="95%" alt="Grids"><br>
+</div>
 
 
-### 3.5. Protótipo de alta fidelidade (Semana 05)
 
-*Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).*
+### 3.5. Protótipo de alta fidelidade
+
+Abaixo estão as imagens e o link que se refere ao protótipo de alta fidelidade da solução.
+
+Link para acessar o figma: https://www.figma.com/design/zVCDQ15z9j5WyamLHekpmi/Projeto-Individual---Pesquisador-de-Curriculos?node-id=63-12&t=NNVAFKirNzCrt2SY-1
+
+<div align="center">
+  <img src="../public/assets/prototipo.png" width="95%" alt="Prototipo"><br>
+</div>
 
 ### 3.6. WebAPI e endpoints (Semana 05)
 
