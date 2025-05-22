@@ -83,7 +83,7 @@ O model `curriculoModel.js` é necessário para filtrar os currículos por meio 
 ### 3.2. Arquitetura
 
 <div align="center">
-  <img src="../public/assets/diagrama.png" width="25%" alt="Diagram"><br>
+  <img src="../public/assets/diagrama.png" width="65%" alt="Diagram"><br>
 </div>
 
 
