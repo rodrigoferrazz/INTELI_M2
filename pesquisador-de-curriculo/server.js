@@ -3,8 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const db = require('./config/db');
-const app  = express();
-const PORT = process.env.PORT || 3000;
+const app = require('./app');
+const PORT = process.env.PORT || 3001; // estava dando um problema com ocupação da porta 3000
 
 // Middlewares
 app.use(express.json());
