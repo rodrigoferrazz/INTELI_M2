@@ -70,19 +70,22 @@ CREATE TABLE curriculos (
 </div>
 
 
-### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+### 3.1.1 BD e Models
 
-### 3.2. Arquitetura (Semana 5)
+O model `curriculoModel.js` é necessário para filtrar os currículos por meio da palavra-chave digitada pelo usuário na barra de pesquisa da tela `home.ejs`, por meio desse código:
 
-*Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
+````js
+  SELECT id, nome, area_de_interesse, idade, numero, arquivo
+  FROM curriculos
+  WHERE area_de_interesse ILIKE $1
+````
 
-**Instruções para criação do diagrama de arquitetura**  
-- **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
-- **View**: A camada responsável pela interface de usuário.
-- **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
-  
-*Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
+### 3.2. Arquitetura
+
+<div align="center">
+  <img src="../public/assets/diagrama.png" width="25%" alt="Diagram"><br>
+</div>
+
 
 ### 3.3. Wireframes
 
@@ -120,9 +123,16 @@ Link para acessar o figma: https://www.figma.com/design/zVCDQ15z9j5WyamLHekpmi/P
   <img src="../public/assets/prototipo.png" width="95%" alt="Prototipo"><br>
 </div>
 
-### 3.6. WebAPI e endpoints (Semana 05)
+### 3.6. WebAPI e endpoints
 
-*Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema.*  
+- GET /curriculos
+  - Descrição: Lista todos os currículos.
+  - Resposta: JSON com todos os currículos registrados.
+
+- GET /curriculos/search?nome=João
+  - Descrição: Procura currículos pelo nome (ou outro critério de busca).
+  - Parâmetro de consulta: nome → Nome para procurar.
+  - Exemplo: GET /curriculos/search?query=Financeiro
 
 ### 3.7 Interface e Navegação (Semana 07)
 
