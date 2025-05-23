@@ -12,6 +12,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 
-app.listen(3001, () => console.log('http://localhost:3001')); // estava dando um problema com ocupação da porta 3000
+app.listen(3000, () => console.log('http://localhost:3000')); // estava dando um problema com ocupação da porta 3000
 
 module.exports = app;
