@@ -129,9 +129,8 @@ Link para acessar o figma: https://www.figma.com/design/zVCDQ15z9j5WyamLHekpmi/P
   - Descrição: Lista todos os currículos.
   - Resposta: JSON com todos os currículos registrados.
 
-- GET /curriculos/search?nome=João
-  - Descrição: Procura currículos pelo nome (ou outro critério de busca).
-  - Parâmetro de consulta: nome → Nome para procurar.
+- GET /curriculos/search?query=Marketing
+  - Descrição: Procura currículos pela palavra-chave de um cargo.
   - Exemplo: GET /curriculos/search?query=Financeiro
 
 ### 3.7 Interface e Navegação (Semana 07)
