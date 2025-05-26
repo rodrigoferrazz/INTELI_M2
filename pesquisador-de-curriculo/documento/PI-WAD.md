@@ -135,7 +135,129 @@ Link para acessar o figma: https://www.figma.com/design/zVCDQ15z9j5WyamLHekpmi/P
 
 ### 3.7 Interface e Navegação (Semana 07)
 
-*Descreva e ilustre aqui o desenvolvimento do frontend do sistema web, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+Em termos gerais as interfaces são simples, a solução possui uma tela principal na qual possui um H1 e um input para o usuário escrever a palavra chave. 
+
+Após enviar (clicando em um ícone que representa o envio ou apertar 'enter' no teclado) a interface é adaptada (mas redirecionada para outra página), com o div principal sendo expandido para aparecer as informações que o sistema precisa dispor, caso o usuário clique em alguma das linhas, o div principal permanece estático mas o usuário pode usar a rolagem para aparecer os outros dados que foram 'escondidos' anteriormente.
+
+O código abaixo refere-se ao <head> das duas telas
+````html
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pesquisador de Currículo</title>
+  <link rel="icon" type="image/png" href="assets/prancheta.png">
+  <link rel="stylesheet" href="/css/style.css" />
+````
+
+O código abaixo refere-se a tela principal
+home.ejs
+````html
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Pesquisador de Currículos</h1>
+      <form class="search-form" action="/search" method="get">
+        <input
+          type="text"
+          name="query"
+          placeholder="Digite uma palavra-chave…"
+          autocomplete="off"
+        />
+        <button type="submit" aria-label="Pesquisar" style="margin-top: 0.4rem;">
+          <img src="/assets/enviar.png" alt="Enviar" style="height: 50%">
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+````
+
+O código abaixo refere-se a segunda tela, onde é feita a exibição dos dados que o sistema resgatou do banco de dados
+````html
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Pesquisador de Currículos</h1>
+
+      <form class="search-form" action="/search" method="get">
+        <input
+          type="text"
+          name="query"
+          value="<%= query %>"
+          placeholder="Digite uma palavra-chave…"
+          autocomplete="off"
+        />
+      </form>
+      <div class="results-scroll">
+      <ul class="results-list" style="list-style:none;padding:0;margin-top: 4;">
+        <% if (!curriculos.length) { %>
+          <li class="no-results">Nenhum currículo encontrado.</li>
+        <% } else { %>
+          <% curriculos.forEach((c, i) => { %>
+            <li class="result-item">
+              <div class="header" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+                <span><%= i+1 %>º Currículo</span>
+                <button
+                  class="toggle-button"
+                  aria-label="Expandir/Contrair"
+                  style="background:none;border:none;padding:0;outline:none;cursor:pointer;"
+                >
+                  <img src="/assets/baixo-oco.png" alt="Expandir">
+                </button>
+              </div>
+
+              <div
+                class="details"
+                style="display:none; justify-content: space-between; align-items: center; margin-top: 20px;"
+              >
+                <div class="detail" style="display:flex;align-items:center;">
+                  <img src="/assets/pessoa.png" alt="Nome do candidato" style="margin-right:0.5rem; width: 18%;">
+                  <span style="font-size:14px"><%= c.nome %></span>
+                </div>
+                <div class="detail" style="display:flex;align-items:center;">
+                  <img src="/assets/telefone.png" alt="Telefone" style="margin-right:0.5rem;">
+                  <span style="font-size:14px"><%= c.numero %></span>
+                </div>
+                <div class="detail" style="display:flex;align-items:center;">
+                  <img src="/assets/pdf.png" alt="Arquivo PDF" style="margin-right:0.5rem;">
+                  <span style="font-size:14px"><%= c.arquivo %></span>
+                </div>
+              </div>
+
+              <div class="separator" style="margin-bottom:1rem; margin-top: 0.3rem;">
+                <img src="/assets/separador.png" alt="Separador" style="width: 100%;align-items: center;">
+              </div>
+            </li>
+          <% }) %>
+        <% } %>
+      </ul>
+    </div>
+      <button
+        class="back-button"
+        onclick="window.location.href='/'"
+      >VOLTAR</button>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.result-item').forEach(item => {
+      const header = item.querySelector('.header');
+      const btnImg = header.querySelector('img');
+      const details = item.querySelector('.details');
+
+      header.addEventListener('click', () => {
+        const aberto = details.style.display === 'flex';
+        details.style.display = aberto ? 'none' : 'flex';
+        btnImg.src = aberto
+          ? '/assets/baixo-oco.png'
+          : '/assets/cima-preenchido.png';
+        btnImg.alt = aberto ? 'Expandir' : 'Contrair';
+      });
+    });
+  </script>
+</body>
+````
+
 
 ---
 
