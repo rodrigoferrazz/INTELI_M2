@@ -1,0 +1,294 @@
+/* =================== RESET BÁSICO =================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =================== VARIÁVEIS DE CORES =================== */
+:root {
+  --sky-blue:      #64c7ff;
+  --sun-yellow:    #ffdd33;
+  --cloud-white:   #ffffff;
+  --grass-green:   #2fa02f;
+  --trunk-brown:   #8b5a2b;
+  --foliage-green: #239123;
+  --apple-red:     #e7382c;
+  --hive-yellow:   #f6d15b;
+  --hive-brown:    #402b1f;
+  --fence-brown:   #a16b3a;
+  --heart-red:     #e03d55;
+}
+
+/* =================== CORPO DA PÁGINA =================== */
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--sky-blue);
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* =================== SOL + RAIOS =================== */
+.sun {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  width: 100px;
+  height: 100px;
+  background: var(--sun-yellow);
+  border-radius: 50%;
+  z-index: 10;
+}
+
+/* =================== NUVENS =================== */
+.cloud {
+  position: absolute;
+}
+.cloud-part {
+  background: var(--cloud-white);
+  border-radius: 50%;
+  position: absolute;
+}
+
+/* Nuvem 1 */
+.cloud1 {
+  width: 120px;
+  height: 60px;
+  top: 30px;
+  left: 340px;
+}
+.cloud1 .c1 { width: 60px;  height: 60px;  top: 0;   left: 0;   }
+.cloud1 .c2 { width: 80px;  height: 80px;  top: -10px; left: 30px; }
+.cloud1 .c3 { width: 60px;  height: 60px;  top: 0;    left: 70px; }
+
+/* Nuvem 2 */
+.cloud2 {
+  width: 140px;
+  height: 70px;
+  top: 80px;
+  left: 750px;
+}
+.cloud2 .c1 { width: 70px;  height: 70px;  top: 0;   left: 0;   }
+.cloud2 .c2 { width: 90px;  height: 90px;  top: -10px; left: 40px; }
+.cloud2 .c3 { width: 70px;  height: 70px;  top: 0;    left: 80px; }
+
+/* Nuvem 3 */
+.cloud3 {
+  width: 100px;
+  height: 50px;
+  top: 40px;
+  right: 180px;
+}
+.cloud3 .c1 { width: 50px;  height: 50px;  top: 0;   left: 100;   }
+.cloud3 .c2 { width: 70px;  height: 70px;  top: -10px; left: 25px; }
+.cloud3 .c3 { width: 50px;  height: 50px;  top: 0;    left: 50px; }
+
+/* =================== ÁRVORE REESTILIZADA E ALINHADA =================== */
+.tree {
+  position: absolute;
+  bottom: 150px; /* tronco repousa sobre a grama */
+  right: 150px;  /* ajuste horizontal para posicionar a árvore */
+  width: 200px;
+  height: 300px; /* altura total aproximada */
+  z-index: 5;
+}
+
+/* Tronco */
+.trunk {
+  position: absolute;
+  bottom: -10px;
+  left: 88px;   /* centraliza o tronco abaixo das folhas */
+  width: 24px;
+  height: 120px;
+  background: var(--trunk-brown);
+  border-radius: 12px;
+  z-index: 0;
+}
+
+/* Copa da árvore: 3 círculos (folhas) colados ao topo do tronco */
+.foliage-back {
+  position: absolute;
+  width: 240px;
+  height: 160px;
+  top: 100px;  /* posiciona a base da copa sobre o topo do tronco */
+  left: -20px;  /* desloca para a esquerda, cobrindo bem o tronco */
+  background: var(--foliage-green);
+  border-radius: 50%;
+  z-index: 1;
+}
+.foliage-left {
+  position: absolute;
+  width: 150px;
+  height: 140px;
+  top: 50px;   /* um pouco “acima” da camada de trás */
+  left: -10px;
+  background: var(--foliage-green);
+  border-radius: 50%;
+  z-index: 2;
+}
+.foliage-right {
+  position: absolute;
+  width: 150px;
+  height: 120px;
+  top: 50px;   /* ainda mais acima, ligeiramente à direita */
+  left: 40px;
+  background: var(--foliage-green);
+  border-radius: 50%;
+  z-index: 3;
+}
+
+/* =================== MAÇÃS =================== */
+.apple {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--apple-red);
+  border-radius: 50%;
+  z-index: 5;
+}
+.apple.a1 { top: 100px; left:  40px; }  /* pousada na folhagem */
+.apple.a2 { top: 140px; left: 110px; }
+
+/* =================== COLMEIA =================== */
+.hive {
+  position: absolute;
+  top: 230px;   /* colmeia “presa” entre as folhas à direita */
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  z-index: 5;
+}
+.hive-ring {
+  position: absolute;
+  background: var(--hive-yellow);
+  border-radius: 50% 50% 40% 40%;
+}
+.h1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 20px;
+}
+.h2 {
+  position: absolute;
+  top: 15px;
+  left: 5px;
+  width: 50px;
+  height: 18px;
+}
+.h3 {
+  position: absolute;
+  top: 28px;
+  left: 10px;
+  width: 40px;
+  height: 15px;
+}
+.hive-entrance {
+  position: absolute;
+  top: 35px;   /* ajustado para valor válido */
+  left: 20px;
+  width: 20px;
+  height: 20px;
+  background: var(--hive-brown);
+  border-radius: 50%;
+}
+
+/* =================== CERCA =================== */
+.fence {
+  position: absolute;
+  bottom: 150px; /* exatamente em cima da grama */
+  left: 0;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  z-index: 4;
+}
+.plank {
+  position: relative;
+  width: 40px;
+  height: 100px;
+  background: var(--fence-brown);
+  clip-path: polygon(10% 0, 90% 0, 100% 15%, 100% 100%, 0 100%, 0 15%);
+  margin: 0 5px;
+}
+
+/* Barras horizontais */
+.fence-bar {
+  position: absolute;
+  left: 0;
+  width: 16%;
+  height: 8px;
+  background: var(--fence-brown);
+}
+.fbar1 {
+  bottom: 80px; /* 150 + 100 - 10 */
+}
+.fbar2 {
+  bottom: 40px; /* 150 + 50 - 5 */
+}
+
+/* =================== VACAS (IMAGEM) =================== */
+.cow {
+  position: absolute;
+  bottom: 140px; /* repousam sobre a grama */
+  width: 120px;  /* largura fixa para dimensionar a imagem */
+  height: auto;  /* manter proporção */
+  z-index: 6;
+}
+.cow1 {
+  left: 185px;
+}
+.cow2 {
+  left: 340px;
+  transform: scaleX(-1); /* vira para olhar para a esquerda */
+}
+
+/* =================== CORAÇÃO =================== */
+.heart {
+  position: absolute;
+  bottom: 200px; /* entre as vacas */
+  left: 310px;
+  width: 24px;
+  height: 24px;
+  background: var(--heart-red);
+  transform: rotate(45deg);
+  z-index: 7;
+}
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: var(--heart-red);
+  border-radius: 50%;
+}
+.heart::before {
+  top: -12px;
+  left: 0;
+}
+.heart::after {
+  top: 0;
+  left: -12px;
+}
+
+/* =================== GRAMA =================== */
+.grass {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 150px;
+  background: var(--grass-green);
+  z-index: 3;
+}
+
+/* =================== FIM DO CSS =================== */
