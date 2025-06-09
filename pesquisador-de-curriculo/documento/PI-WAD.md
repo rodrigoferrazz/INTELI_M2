@@ -133,13 +133,13 @@ Link para acessar o figma: https://www.figma.com/design/zVCDQ15z9j5WyamLHekpmi/P
   - Descrição: Procura currículos pela palavra-chave de um cargo.
   - Exemplo: GET /curriculos/search?query=Financeiro
 
-### 3.7 Interface e Navegação (Semana 07)
+### 3.7 Interface e Navegação
 
 Em termos gerais as interfaces são simples, a solução possui uma tela principal na qual possui um H1 e um input para o usuário escrever a palavra chave. 
 
 Após enviar (clicando em um ícone que representa o envio ou apertar 'enter' no teclado) a interface é adaptada (mas redirecionada para outra página), com o div principal sendo expandido para aparecer as informações que o sistema precisa dispor, caso o usuário clique em alguma das linhas, o div principal permanece estático mas o usuário pode usar a rolagem para aparecer os outros dados que foram 'escondidos' anteriormente.
 
-O código abaixo refere-se ao <head> das duas telas
+O código abaixo refere-se ao head das duas telas
 ````html
   <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <meta charset="UTF-8" />
