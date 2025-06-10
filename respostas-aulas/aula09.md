@@ -1,6 +1,6 @@
 RESPOSTAS DO EXERCÍCIO DA AULA 09
 1. A
-2. C
+2. A
 3. A
 4. E
 5. D
