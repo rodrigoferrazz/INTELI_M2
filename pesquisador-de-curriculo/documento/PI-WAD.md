@@ -261,23 +261,307 @@ O código abaixo refere-se a segunda tela, onde é feita a exibição dos dados 
 
 ---
 
-## <a name="c4"></a>4. Desenvolvimento da Aplicação Web (Semana 8)
+## <a name="c4"></a>4. Desenvolvimento da Aplicação Web
 
-### 4.1 Demonstração do Sistema Web (Semana 8)
+### 4.1 Demonstração do Sistema Web
 
-*VIDEO: Insira o link do vídeo demonstrativo nesta seção*
-*Descreva e ilustre aqui o desenvolvimento do sistema web completo, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+Para ter acesso ao vídeo de demonstração [clique aqui](https://drive.google.com/file/d/1cXgoOYi-wTyMD3Qjcp1rOJz399uQUhZ-/view?usp=drive_link).
 
-### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
+Inicialmente, o banco de dados possui apenas uma tabela com inserção de dados nela, assim como o código abaixo representa.
 
-*Indique pontos fortes e pontos a melhorar de maneira geral.*
-*Relacione também quaisquer outras ideias que você tenha para melhorias futuras.*
+```init.sql
+CREATE TABLE IF NOT EXISTS curriculos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL, 
+    area_de_interesse VARCHAR(50) NOT NULL,  
+    idade INT NOT NULL,  
+    numero VARCHAR(20) NOT NULL,
+    arquivo VARCHAR(255) NOT NULL
+);
 
+INSERT INTO curriculos (nome, area_de_interesse, idade, numero, arquivo) VALUES
+('Marcela Cruz', 'Financeiro', 45, '(+55) 14 141414141', 'marcelacruz.pdf'),
+('Samuel Oliveira', 'Administrativo', 23, '(+55) 14 141414142', 'samueloliveira.pdf'),
+('Ronaldo Campos', 'Recursos Humanos', 33, '(+55) 14 141414143', 'ronaldocampos.pdf'),
+('Erick Santos', 'Recursos Humanos', 22, '(+55) 14 141414144', 'ericksantos.pdf'),
+('Sara Almeida', 'Financeiro', 44, '(+55) 14 141414145', 'saraalmeida.pdf'),
+('Victoria Gava', 'Financeiro', 35, '(+55) 14 141414146', 'victoriagava.pdf'),
+('Rodrigo Silva', 'Administrativo', 34, '(+55) 14 141414147', 'rodrigosilva.pdf'),
+('Adriana Camargo', 'Administrativo', 34, '(+55) 14 141414148', 'adrianacamargo.pdf'),
+('Joao Lonn', 'Recepcionista', 34, '(+55) 14 141414149', 'joaolonn.pdf'),
+('Bernardo Meirelles', 'Motorista', 23, '(+55) 14 141414150', 'bernardomeirelles.pdf'),
+('Danilo de Castro', 'Gestor de Tráfego', 21, '(+55) 14 141414151', 'danilodecastro.pdf'),
+('Victor Raymundo', 'Analista de Dados', 22, '(+55) 14 141414152', 'victorraymundo.pdf'),
+('Guilherme Holanda', 'Design Gráfico', 41, '(+55) 14 141414153', 'guilhermeholanda.pdf'),
+('Leandro Pozza', 'Marketing', 37, '(+55) 14 141414154', 'leandropozza.pdf'),
+('Arthur Ossucci', 'Marketing', 36, '(+55) 14 141414155', 'arthurossucci.pdf');
+```
+
+Para o model, apenas um é o suficiente para o site, onde busca todas colunas da tabela, além disso faz uma procura específica na coluna `area_de_interesse`
+
+```curriculoModel.js
+const db = require('../config/db');
+
+class Curriculo {
+  static async findByArea(termo) {
+    const sql = `
+      SELECT id, nome, area_de_interesse, idade, numero, arquivo
+      FROM curriculos
+      WHERE area_de_interesse ILIKE $1
+    `;
+    const { rows } = await db.query(sql, [`%${termo}%`]);
+    return rows;
+  }
+}
+
+module.exports = Curriculo;
+```
+
+Assim como o model, existe apena um controller, que faz a ligação do model com o view, onde filtra na coluna de `area_de_interesse` aquilo que o usuário digitou (`termo`)
+
+```homeController.js
+// controllers/homeController.js
+const db = require('../config/db');
+
+exports.index = (req, res) => {
+  res.render('pages/home');
+};
+
+exports.search = async (req, res) => {
+  const termo = (req.query.query || '').trim();
+  try {
+    const { rows } = await db.query(
+      `SELECT id, nome, area_de_interesse, idade, numero, arquivo
+       FROM curriculos
+       WHERE area_de_interesse ILIKE $1`,
+      [`%${termo}%`]
+    );
+    res.render('pages/results', {
+      curriculos: rows,
+      query: termo
+    });
+  } catch (err) {
+    console.error('Erro ao buscar currículos:', err);
+    res.status(500).send('Erro interno ao buscar currículos.');
+  }
+};
+```
+
+Além disso, existem apenas duas rotas que é a da home e dos resultados, assim como está no código abaixo
+
+```index.js
+const express = require('express');
+const router = express.Router();
+const homeController = require('../controllers/homeController');
+
+// rota da home
+router.get('/', homeController.index);
+
+// rota de busca por área de interesse
+router.get('/search', homeController.search);
+
+module.exports = router;
+```
+
+Para finalizar, as views são duas, `home.ejs` e `results.ejs`, onde usam o css de apenas um arquivo: `style.css`
+
+```home.ejs
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pesquisador de Currículos</title> 
+  <link rel="icon" type="image/png" href="assets/prancheta.png">
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Pesquisador de Currículos</h1>
+      <form class="search-form" action="/search" method="get">
+        <input
+          type="text"
+          name="query"
+          placeholder="Digite uma palavra-chave…"
+          autocomplete="off"
+        />
+        <button type="submit" aria-label="Pesquisar" style="margin-top: 0.4rem;">
+          <img src="/assets/enviar.png" alt="Enviar" style="height: 50%">
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+```
+
+```results.ejs
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pesquisador de Currículo</title>
+  <link rel="icon" type="image/png" href="assets/prancheta.png">
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Pesquisador de Currículos</h1>
+
+      <form class="search-form" action="/search" method="get">
+        <input
+          type="text"
+          name="query"
+          value="<%= query %>"
+          placeholder="Digite uma palavra-chave…"
+          autocomplete="off"
+        />
+      </form>
+      <div class="results-scroll">
+      <ul class="results-list" style="list-style:none;padding:0;margin-top: 4;">
+        <% if (!curriculos.length) { %>
+          <li class="no-results">Nenhum currículo encontrado.</li>
+        <% } else { %>
+          <% curriculos.forEach((c, i) => { %>
+            <li class="result-item">
+              <div class="header" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+                <span><%= i+1 %>º Currículo</span>
+                <button
+                  class="toggle-button"
+                  aria-label="Expandir/Contrair"
+                  style="background:none;border:none;padding:0;outline:none;cursor:pointer;"
+                >
+                  <img src="/assets/baixo-oco.png" alt="Expandir">
+                </button>
+              </div>
+
+              <div
+                class="details"
+                style="display:none; justify-content: space-between; align-items: center; margin-top: 20px;"
+              >
+                <div class="detail" style="display:flex;align-items:center;">
+                  <img src="/assets/pessoa.png" alt="Nome do candidato" style="margin-right:0.5rem; width: 18%;">
+                  <span style="font-size:14px"><%= c.nome %></span>
+                </div>
+                <div class="detail" style="display:flex;align-items:center;">
+                  <img src="/assets/telefone.png" alt="Telefone" style="margin-right:0.5rem;">
+                  <span style="font-size:14px"><%= c.numero %></span>
+                </div>
+                <div class="detail" style="display:flex;align-items:center;">
+                  <img src="/assets/pdf.png" alt="Arquivo PDF" style="margin-right:0.5rem;">
+                  <span style="font-size:14px"><%= c.arquivo %></span>
+                </div>
+              </div>
+
+              <div class="separator" style="margin-bottom:1rem; margin-top: 0.3rem;">
+                <img src="/assets/separador.png" alt="Separador" style="width: 100%;align-items: center;">
+              </div>
+            </li>
+          <% }) %>
+        <% } %>
+      </ul>
+    </div>
+      <button
+        class="back-button"
+        onclick="window.location.href='/'"
+      >VOLTAR</button>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.result-item').forEach(item => {
+      const header = item.querySelector('.header');
+      const btnImg = header.querySelector('img');
+      const details = item.querySelector('.details');
+
+      header.addEventListener('click', () => {
+        const aberto = details.style.display === 'flex';
+        details.style.display = aberto ? 'none' : 'flex';
+        btnImg.src = aberto
+          ? '/assets/baixo-oco.png'
+          : '/assets/cima-preenchido.png';
+        btnImg.alt = aberto ? 'Expandir' : 'Contrair';
+      });
+    });
+  </script>
+</body>
+</html>
+```
+
+```style.css
+/* Reset básico para remover estilos padrão do navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo para o corpo da página */
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Estilo para o cabeçalho */
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  /* Estilo para a navegação dentro do cabeçalho */
+  header nav ul {
+    list-style-type: none;
+  }
+  
+  header nav ul li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  header nav ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Estilo para o conteúdo principal */
+  main {
+    padding: 20px;
+  }
+  
+  /* Estilo para o rodapé */
+  footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  ```
+
+### 4.2 Conclusões e Trabalhos Futuros
+
+O ponto mais forte seria a agilidade do sistema, retornando em tempo real a requisição e com uma interface de fácil entendimento.
+
+Para uma melhoria futura é necessário adicionar uma maneira de adicionar os currículos que precisam ser filtrados de forma que o banco de dados não dependa de subir os dados de forma manual.
 
 
 ## <a name="c5"></a>5. Referências
 
-_Incluir as principais referências de seu projeto, para que seu parceiro possa consultar caso ele se interessar em aprofundar. Um exemplo de referência de livro e de site:_<br>
-
----
----
+O projeto não possui referências.
